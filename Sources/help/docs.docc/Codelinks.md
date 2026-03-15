@@ -301,10 +301,8 @@ When specifying a protocol composition type, use the `&` character to separate t
 
 | Syntax | Renders as |
 | ------ | ---------- |
-| ` ``Example.k(_:) (Sendable & CustomStringConvertible)`` ` | ``Example.k(_:) (Sendable & CustomStringConvertible)`` |
+| ` ``Example.k(any:) (CustomStringConvertible & Equatable)`` ` | ``Example.k(any:) (CustomStringConvertible & Equatable)`` |
 | ` ``Example.k(_:) (CustomStringConvertible & Sendable)`` ` | ``Example.k(_:) (CustomStringConvertible & Sendable)`` |
-
-The order of the protocols is significant, and must match the order in the source declaration.
 
 As with renaming generic parameters, reordering protocols in a composition type is documentation-breaking, even though it is ABI-compatible.
 
