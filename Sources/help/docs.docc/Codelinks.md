@@ -10,7 +10,7 @@ You write codelinks using double backticks. Here are some examples:
 ``String.Index``
 ```
 
-A Swift documentation engine, such as [Unidoc](https://github.com/tayloraswift/swift-unidoc) or [DocC](https://www.swift.org/documentation/docc/), can resolve and render these codelinks like this:
+A Swift documentation engine, such as [Unidoc](https://github.com/rarestype/unidoc) or [DocC](https://www.swift.org/documentation/docc/), can resolve and render these codelinks like this:
 
 ``Int``
 ``String``

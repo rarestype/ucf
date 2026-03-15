@@ -1,13 +1,13 @@
 {
-  "originHash" : "fa5803caf4d42139c0468ebaf776270aa77d4c3c237b90560c9ffc7b66d9a8e8",
+  "originHash" : "b227eb2d6b2124af40b7225ab61a69e16fe42db9f91be9f510c51b6e40e22bec",
   "pins" : [
     {
-      "identity" : "swift-atomics",
+      "identity" : "dollup",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-atomics.git",
+      "location" : "https://github.com/ordo-one/dollup",
       "state" : {
-        "revision" : "cd142fd2f64be2100422d658e7411e39489da985",
-        "version" : "1.2.0"
+        "revision" : "066566834355532c973c2acbc4891d41b3368ae0",
+        "version" : "1.0.1"
       }
     },
     {
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tayloraswift/swift-grammar",
       "state" : {
-        "revision" : "4b47a153732e0b094ef7dd95d891b37b7ae37a69",
-        "version" : "0.4.1"
+        "revision" : "0dac977b50bf677b2c3adabd7d5586a7b6e09b17",
+        "version" : "0.5.0"
       }
     }
   ],

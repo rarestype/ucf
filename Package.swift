@@ -14,7 +14,8 @@ let package:Package = .init(
         .library(name: "URI", targets: ["URI"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/tayloraswift/swift-grammar", from: "0.4.0"),
+        .package(url: "https://github.com/ordo-one/dollup", from: "1.0.1"),
+        .package(url: "https://github.com/tayloraswift/swift-grammar", from: "0.5.0"),
     ],
     targets: [
         .target(name: "help"),

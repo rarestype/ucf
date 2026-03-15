@@ -7,7 +7,7 @@
     Dianna Ma (taylorswift)
 
 -   Implementation:
-    Available since [Unidoc](https://github.com/tayloraswift/swift-unidoc) 0.3.14
+    Available since [Unidoc](https://github.com/rarestype/unidoc) 0.3.14
 
 -   Review:
     [pitch](https://forums.swift.org/t/unified-documentation-links/68128)
