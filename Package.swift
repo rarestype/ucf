@@ -2,8 +2,8 @@
 import PackageDescription
 import CompilerPluginSupport
 
-let package:Package = .init(
-    name: "Swift unified codelink format",
+let package: Package = .init(
+    name: "ucf",
     platforms: [.macOS(.v15), .iOS(.v18), .tvOS(.v18), .visionOS(.v2), .watchOS(.v11)],
     products: [
         .library(name: "help", targets: ["help"]),
@@ -14,7 +14,8 @@ let package:Package = .init(
         .library(name: "URI", targets: ["URI"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/tayloraswift/swift-grammar", from: "0.4.0"),
+        .package(url: "https://github.com/ordo-one/dollup", from: "1.0.1"),
+        .package(url: "https://github.com/tayloraswift/swift-grammar", from: "0.5.0"),
     ],
     targets: [
         .target(name: "help"),
@@ -22,38 +23,48 @@ let package:Package = .init(
 
         .target(name: "FNV1"),
 
-        .target(name: "UCF",
+        .target(
+            name: "UCF",
             dependencies: [
                 .target(name: "FNV1"),
                 .target(name: "URI"),
-            ]),
+            ]
+        ),
 
-        .target(name: "URI",
+        .target(
+            name: "URI",
             dependencies: [
                 .product(name: "Grammar", package: "swift-grammar"),
-            ]),
+            ]
+        ),
 
 
-        .testTarget(name: "FNV1Tests",
+        .testTarget(
+            name: "FNV1Tests",
             dependencies: [
                 .target(name: "FNV1"),
-            ]),
+            ]
+        ),
 
-        .testTarget(name: "UCFTests",
+        .testTarget(
+            name: "UCFTests",
             dependencies: [
                 .target(name: "UCF"),
-            ]),
+            ]
+        ),
 
-        .testTarget(name: "URITests",
+        .testTarget(
+            name: "URITests",
             dependencies: [
                 .target(name: "URI"),
-            ]),
-    ])
+            ]
+        ),
+    ]
+)
 
-for target:PackageDescription.Target in package.targets
-{
+for target: PackageDescription.Target in package.targets {
     {
-        var settings:[PackageDescription.SwiftSetting] = $0 ?? []
+        var settings: [PackageDescription.SwiftSetting] = $0 ?? []
 
         settings.append(.enableUpcomingFeature("ExistentialAny"))
         settings.append(.enableExperimentalFeature("StrictConcurrency"))

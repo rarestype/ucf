@@ -1,8 +1,5 @@
-extension UCF
-{
-    @frozen public
-    enum Condition:Substring, Equatable, Hashable, Sendable
-    {
+extension UCF {
+    @frozen public enum Condition: Substring, Equatable, Hashable, Sendable {
         case  actor             = "actor"
         case `associatedtype`   = "associatedtype"
         case `enum`             = "enum"
@@ -29,13 +26,9 @@ extension UCF
         case ignore_when        = "ignore when"
     }
 }
-extension UCF.Condition
-{
-    @inlinable public
-    init?(legacy:UCF.LegacyFilter)
-    {
-        switch legacy
-        {
+extension UCF.Condition {
+    @inlinable public init?(legacy: UCF.LegacyFilter) {
+        switch legacy {
         case .associatedtype:   self = .associatedtype
         case .enum:             self = .enum
         case .enum_case:        self = .case
@@ -58,22 +51,15 @@ extension UCF.Condition
         }
     }
 }
-extension UCF.Condition:CustomStringConvertible
-{
-    @inlinable public
-    var description:String { .init(self.rawValue) }
+extension UCF.Condition: CustomStringConvertible {
+    @inlinable public var description: String { .init(self.rawValue) }
 }
-extension UCF.Condition:LosslessStringConvertible
-{
-    @inlinable public
-    init?(_ description:String)
-    {
+extension UCF.Condition: LosslessStringConvertible {
+    @inlinable public init?(_ description: String) {
         self.init(rawValue: description[...])
     }
 
-    @inlinable public
-    init?(_ description:Substring)
-    {
+    @inlinable public init?(_ description: Substring) {
         self.init(rawValue: description)
     }
 }

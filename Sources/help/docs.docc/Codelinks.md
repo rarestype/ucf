@@ -10,7 +10,7 @@ You write codelinks using double backticks. Here are some examples:
 ``String.Index``
 ```
 
-A Swift documentation engine, such as [Unidoc](https://github.com/tayloraswift/swift-unidoc) or [DocC](https://www.swift.org/documentation/docc/), can resolve and render these codelinks like this:
+A Swift documentation engine, such as [Unidoc](https://github.com/rarestype/unidoc) or [DocC](https://www.swift.org/documentation/docc/), can resolve and render these codelinks like this:
 
 ``Int``
 ``String``
@@ -301,10 +301,8 @@ When specifying a protocol composition type, use the `&` character to separate t
 
 | Syntax | Renders as |
 | ------ | ---------- |
-| ` ``Example.k(_:) (Sendable & CustomStringConvertible)`` ` | ``Example.k(_:) (Sendable & CustomStringConvertible)`` |
+| ` ``Example.k(any:) (CustomStringConvertible & Equatable)`` ` | ``Example.k(any:) (CustomStringConvertible & Equatable)`` |
 | ` ``Example.k(_:) (CustomStringConvertible & Sendable)`` ` | ``Example.k(_:) (CustomStringConvertible & Sendable)`` |
-
-The order of the protocols is significant, and must match the order in the source declaration.
 
 As with renaming generic parameters, reordering protocols in a composition type is documentation-breaking, even though it is ABI-compatible.
 
