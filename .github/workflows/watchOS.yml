@@ -10,5 +10,5 @@ jobs:
     build:
         uses: rarestype/swift-device-action/.github/workflows/build.yml@master
         with:
-            xcode-scheme: 'Swift unified codelink format-Package'
+            xcode-scheme: 'ucf-Package'
             destination: ${{ github.workflow }}
