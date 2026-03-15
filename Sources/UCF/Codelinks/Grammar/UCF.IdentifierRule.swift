@@ -1,40 +1,32 @@
 import Grammar
 
-extension UCF
-{
+extension UCF {
     /// Identifier ::= ( ``FirstCodepoint`` ``NextCodepoint`` * ) - 'Type' | '`' '`' ^ '`'
-    enum IdentifierRule:ParsingRule
-    {
+    enum IdentifierRule: ParsingRule {
         typealias Location = String.Index
         typealias Terminal = Unicode.Scalar
 
         static func parse<Diagnostics>(
-            _ input:inout ParsingInput<Diagnostics>) throws -> Range<Location> where
-            Diagnostics:ParsingDiagnostics,
+            _ input: inout ParsingInput<Diagnostics>
+        ) throws -> Range<Location> where
+            Diagnostics: ParsingDiagnostics,
             Diagnostics.Source.Element == Terminal,
-            Diagnostics.Source.Index == Location
-        {
-            let start:Location = input.index
+            Diagnostics.Source.Index == Location {
+            let start: Location = input.index
 
-            if  case ()? = input.parse(as: FirstCodepoint?.self)
-            {
+            if  case ()? = input.parse(as: FirstCodepoint?.self) {
                 input.parse(as: NextCodepoint.self, in: Void.self)
-            }
-            else
-            {
+            } else {
                 try input.parse(as: UnicodeEncoding<Location, Terminal>.Backtick.self)
                 input.parse(as: RawCodepoint.self, in: Void.self)
                 try input.parse(as: UnicodeEncoding<Location, Terminal>.Backtick.self)
             }
 
-            let end:Location = input.index
+            let end: Location = input.index
 
-            if  input[start ..< end].elementsEqual(["T", "y", "p", "e"])
-            {
+            if  input[start ..< end].elementsEqual(["T", "y", "p", "e"]) {
                 throw IdentifierError.reserved
-            }
-            else
-            {
+            } else {
                 return start ..< end
             }
         }

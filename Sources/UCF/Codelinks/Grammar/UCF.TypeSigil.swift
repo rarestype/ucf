@@ -1,16 +1,11 @@
-extension UCF
-{
-    enum TypeSigil
-    {
+extension UCF {
+    enum TypeSigil {
         case tilde
     }
 }
-extension UCF.TypeSigil
-{
-    var text:String
-    {
-        switch self
-        {
+extension UCF.TypeSigil {
+    var text: String {
+        switch self {
         case .tilde:    "~"
         }
     }

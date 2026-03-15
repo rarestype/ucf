@@ -1,7 +1,5 @@
-extension UCF
-{
-    enum TypeOperand
-    {
+extension UCF {
+    enum TypeOperand {
         case bracket(TypePattern, TypePattern?)
         case closure([TypePattern], TypePattern)
         case nominal([(Range<String.Index>, [TypePattern])])
