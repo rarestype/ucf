@@ -1,3 +1,5 @@
+#  ❣❣❣  DO NOT EDIT  ❣  THIS FILE IS AUTOMATICALLY SYNCED  ❣  DO NOT EDIT  ❣❣❣
+
 name: semantic release
 
 on:
@@ -20,7 +22,7 @@ jobs:
             CREATE_RELEASE: 'true'
         steps:
             -   name: ⚡ Checkout repository ⚡
-                uses: actions/checkout@v4
+                uses: actions/checkout@v6
                 with:
                     # fetch all history so the workflow can find previous tags
                     fetch-depth: 0
@@ -80,7 +82,7 @@ jobs:
                     git push origin "${{ steps.increment.outputs.version }}"
 
             -   name: ⚡ Create release ⚡
-                if: steps.bump.outputs.type != 'none' && env.CREATE_RELEASE == 'true'
+                if: steps.parse.outputs.type != 'none' && env.CREATE_RELEASE == 'true'
                 run: |
                     gh release create "${{ steps.increment.outputs.version }}" \
                         --title "${{ steps.increment.outputs.version }}" \
