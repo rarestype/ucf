@@ -1,25 +1,15 @@
-extension URI.Path.Component
-{
-    @frozen public
-    enum EncodingSet
-    {
+extension URI.Path.Component {
+    @frozen public enum EncodingSet {
     }
 }
-extension URI.Path.Component.EncodingSet:PercentEncodingSet
-{
-    @inlinable public static
-    func contains(_ byte:UInt8) -> Bool
-    {
+extension URI.Path.Component.EncodingSet: PercentEncodingSet {
+    @inlinable public static func contains(_ byte: UInt8) -> Bool {
         Self.contains(codepoint: .init(byte))
     }
 }
-extension URI.Path.Component.EncodingSet
-{
-    @inlinable static
-    func contains(codepoint:Unicode.Scalar) -> Bool
-    {
-        switch codepoint
-        {
+extension URI.Path.Component.EncodingSet {
+    @inlinable static func contains(codepoint: Unicode.Scalar) -> Bool {
+        switch codepoint {
         case "!":           false
         case "$":           false
         case "&":           false
