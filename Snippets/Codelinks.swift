@@ -66,9 +66,9 @@ extension Example {
 
     public func h(_: any Error) {}
 
-    public func k(_: some Sendable & CustomStringConvertible) {}
+    public func k(_: some CustomStringConvertible & Equatable) {}
 
-    public func k(_: any CustomStringConvertible & Sendable) {}
+    public func k(any: any CustomStringConvertible & Sendable) {}
 
     public func l(_: ()) {}
 
