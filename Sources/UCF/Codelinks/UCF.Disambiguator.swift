@@ -1,38 +1,27 @@
-extension UCF
-{
-    @frozen public
-    struct Disambiguator:Equatable, Hashable, Sendable
-    {
-        public
-        let conditions:[ConditionFilter]
-        public
-        let signature:SignatureFilter?
+extension UCF {
+    @frozen public struct Disambiguator: Equatable, Hashable, Sendable {
+        public let conditions: [ConditionFilter]
+        public let signature: SignatureFilter?
 
-        @inlinable public
-        init(conditions:[ConditionFilter], signature:SignatureFilter?)
-        {
+        @inlinable public init(conditions: [ConditionFilter], signature: SignatureFilter?) {
             self.conditions = conditions
             self.signature = signature
         }
     }
 }
-extension UCF.Disambiguator
-{
+extension UCF.Disambiguator {
     init?(
-        signature:borrowing UCF.SignaturePattern?,
-        clauses:borrowing [(String, String?)],
-        source:borrowing Substring)
-    {
-        var conditions:[UCF.ConditionFilter] = []
-            conditions.reserveCapacity(clauses.count)
+        signature: borrowing UCF.SignaturePattern?,
+        clauses: borrowing [(String, String?)],
+        source: borrowing Substring
+    ) {
+        var conditions: [UCF.ConditionFilter] = []
+        conditions.reserveCapacity(clauses.count)
 
-        for clause:(String, String?) in copy clauses
-        {
+        for clause: (String, String?) in copy clauses {
             //  The parser already collapses whitespace.
             guard
-            let condition:UCF.Condition = .init(clause.0)
-            else
-            {
+            let condition: UCF.Condition = .init(clause.0) else {
                 return nil
             }
 
@@ -43,6 +32,7 @@ extension UCF.Disambiguator
         //  and extract the signature.
         self.init(
             conditions: conditions,
-            signature: signature.map { .init(parsed: $0, source: source) })
+            signature: signature.map { .init(parsed: $0, source: source) }
+        )
     }
 }

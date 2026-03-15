@@ -1,20 +1,12 @@
 import FNV1
 
-extension UCF
-{
-    @frozen public
-    struct Selector:Equatable, Hashable, Sendable
-    {
-        public
-        let base:Base
-        public
-        var path:Path
-        public
-        var suffix:Suffix?
+extension UCF {
+    @frozen public struct Selector: Equatable, Hashable, Sendable {
+        public let base: Base
+        public var path: Path
+        public var suffix: Suffix?
 
-        @inlinable public
-        init(base:Base, path:Path = .init(), suffix:Suffix? = nil)
-        {
+        @inlinable public init(base: Base, path: Path = .init(), suffix: Suffix? = nil) {
             self.base = base
             self.path = path
             self.suffix = suffix
@@ -22,64 +14,49 @@ extension UCF
     }
 }
 
-extension UCF.Selector:CustomStringConvertible
-{
-    public
-    var description:String
-    {
-        var string:String = ""
+extension UCF.Selector: CustomStringConvertible {
+    public var description: String {
+        var string: String = ""
 
-        for (i, component):(Int, String) in zip(
-            self.path.components.indices,
-            self.path.components)
-        {
-            if  self.path.components.startIndex != i
-            {
+        for (i, component): (Int, String) in zip(
+                self.path.components.indices,
+                self.path.components
+            ) {
+            if  self.path.components.startIndex != i {
                 string += self.path.fold == i ? "/" : "."
-            }
-            else if case .qualified = self.base
-            {
+            } else if case .qualified = self.base {
                 string += "/"
             }
 
             string += component
         }
 
-        if  case .trailingParentheses? = self.path.seal
-        {
+        if  case .trailingParentheses? = self.path.seal {
             string += "()"
         }
 
-        switch self.suffix
-        {
+        switch self.suffix {
         case nil:
             return string
 
         case .unidoc(let filter)?:
-            if  let signature:UCF.SignatureFilter = filter.signature
-            {
+            if  let signature: UCF.SignatureFilter = filter.signature {
                 string.append(" ")
                 string.append(signature.formatted(spaces: true))
             }
-            if !filter.conditions.isEmpty
-            {
+            if !filter.conditions.isEmpty {
                 string.append(" [")
-                var first:Bool = true
-                for condition:UCF.ConditionFilter in filter.conditions
-                {
-                    if  first
-                    {
+                var first: Bool = true
+                for condition: UCF.ConditionFilter in filter.conditions {
+                    if  first {
                         first = false
-                    }
-                    else
-                    {
+                    } else {
                         string.append(", ")
                     }
 
                     string.append("\(condition.label)")
 
-                    if  let value:String = condition.value
-                    {
+                    if  let value: String = condition.value {
                         string.append(": ")
                         string.append(value)
                     }
@@ -99,38 +76,27 @@ extension UCF.Selector:CustomStringConvertible
         }
     }
 }
-extension UCF.Selector:LosslessStringConvertible
-{
-    public
-    init?(_ string:String)
-    {
+extension UCF.Selector: LosslessStringConvertible {
+    public init?(_ string: String) {
         self.init(string[...])
     }
 
-    public
-    init?(_ string:Substring)
-    {
+    public init?(_ string: Substring) {
         guard
-        let i:String.Index = string.indices.first
-        else
-        {
+        let i: String.Index = string.indices.first else {
             return nil
         }
 
         //  Trim trailing slashes.
-        var j:String.Index = string.endIndex
-        while true
-        {
-            let k:String.Index = string.index(before: j)
+        var j: String.Index = string.endIndex
+        while true {
+            let k: String.Index = string.index(before: j)
 
-            guard case "/" = string[k]
-            else
-            {
+            guard case "/" = string[k] else {
                 break
             }
 
-            if  k == i
-            {
+            if  k == i {
                 //  String only contains slashes.
                 return nil
             }
@@ -138,50 +104,38 @@ extension UCF.Selector:LosslessStringConvertible
             j = k
         }
 
-        if  string[i] != "/"
-        {
+        if  string[i] != "/" {
             self.init(base: .relative, parsing: string[i ..< j])
             return
         }
 
-        var path:Path = .init()
+        var path: Path = .init()
         //  Special case for bare operator references:
-        if  let sole:PathComponent = .parse(string.unicodeScalars[i ..< j]),
-            j == sole.range.upperBound
-        {
+        if  let sole: PathComponent = .parse(string.unicodeScalars[i ..< j]),
+            j == sole.range.upperBound {
             path.append(sole)
             self.init(base: .relative, path: path)
-        }
-        else
-        {
+        } else {
             self.init(base: .qualified, parsing: string[string.index(after: i) ..< j])
         }
     }
 }
-extension UCF.Selector
-{
-    private
-    init?(base:Base, parsing string:Substring)
-    {
+extension UCF.Selector {
+    private init?(base: Base, parsing string: Substring) {
         self.init(base: base)
 
-        var i:String.Index = string.startIndex
-        while let next:PathComponent = .parse(string.unicodeScalars[i...])
-        {
+        var i: String.Index = string.startIndex
+        while let next: PathComponent = .parse(string.unicodeScalars[i...]) {
             self.path.append(next)
 
-            let j:String.Index = next.range.upperBound
-            if  j < string.endIndex
-            {
+            let j: String.Index = next.range.upperBound
+            if  j < string.endIndex {
                 i = string.index(after: j)
-            }
-            else
-            {
+            } else {
                 return
             }
 
-            switch string[j]
-            {
+            switch string[j] {
             case "/":
                 self.path.fold = self.path.components.endIndex
                 continue
@@ -191,20 +145,16 @@ extension UCF.Selector
 
             case " ":
                 //  The space is part of the disambiguator, so we must slice from `j`, not `i`
-                if  let suffix:Suffix = .parse(unidoc: string[j...])
-                {
+                if  let suffix: Suffix = .parse(unidoc: string[j...]) {
                     self.suffix = suffix
                     return
-                }
-                else
-                {
+                } else {
                     return nil
                 }
 
             case "-":
                 //  Parse a legacy DocC disambiguation suffix.
-                if  let slash:String.Index = string[i...].firstIndex(of: "/")
-                {
+                if  let slash: String.Index = string[i...].firstIndex(of: "/") {
                     //  This is an interior path component, so the disambiguator is
                     //  meaningless. XCode generates these for historical reasons that
                     //  are irrelevant and indistinguishable from a bug to us.
@@ -215,13 +165,10 @@ extension UCF.Selector
                 }
                 //  The hyphen is part of the disambiguator, so we must slice from `j`, not `i`
                 else if
-                    let suffix:Suffix = .parse(legacy: string[j...])
-                {
+                    let suffix: Suffix = .parse(legacy: string[j...]) {
                     self.suffix = suffix
                     return
-                }
-                else
-                {
+                } else {
                     return nil
                 }
 

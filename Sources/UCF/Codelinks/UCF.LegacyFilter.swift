@@ -1,8 +1,5 @@
-extension UCF
-{
-    @frozen public
-    enum LegacyFilter:Substring, Equatable, Hashable, Sendable
-    {
+extension UCF {
+    @frozen public enum LegacyFilter: Substring, Equatable, Hashable, Sendable {
         case `associatedtype`   = "associatedtype"
         case `enum`             = "enum"
         case  enum_case         = "enum.case"

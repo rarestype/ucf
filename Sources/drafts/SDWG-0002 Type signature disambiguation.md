@@ -4,10 +4,10 @@
     SDWG-0002
 
 -   Author(s):
-    Dianna Ma (taylorswift)
+    Diana Ma (taylorswift)
 
 -   Implementation:
-    Available since [Unidoc](https://github.com/tayloraswift/swift-unidoc) 0.20.0
+    Available since [Unidoc](https://github.com/rarestype/unidoc) 0.20.0
 
 -   Review:
     TBD
