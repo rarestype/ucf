@@ -15,7 +15,7 @@ let package: Package = .init(
     ],
     dependencies: [
         .package(url: "https://github.com/ordo-one/dollup", from: "1.0.1"),
-        .package(url: "https://github.com/tayloraswift/swift-grammar", from: "0.5.0"),
+        .package(url: "https://github.com/rarestype/gram", from: "1.0.0"),
     ],
     targets: [
         .target(name: "help"),
@@ -34,7 +34,7 @@ let package: Package = .init(
         .target(
             name: "URI",
             dependencies: [
-                .product(name: "Grammar", package: "swift-grammar"),
+                .product(name: "Grammar", package: "gram"),
             ]
         ),
 
@@ -62,9 +62,9 @@ let package: Package = .init(
     ]
 )
 
-for target: PackageDescription.Target in package.targets {
+for target: Target in package.targets {
     {
-        var settings: [PackageDescription.SwiftSetting] = $0 ?? []
+        var settings: [SwiftSetting] = $0 ?? []
 
         settings.append(.enableUpcomingFeature("ExistentialAny"))
         settings.append(.enableExperimentalFeature("StrictConcurrency"))

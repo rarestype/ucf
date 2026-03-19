@@ -1,4 +1,5 @@
-.build
-.build.*
-.vscode
-.ssgc
+/.build
+/.build.*
+/.vscode
+
+/Package.resolved
