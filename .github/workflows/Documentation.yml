@@ -1,4 +1,9 @@
-name: documentation
+#  ❣❣❣  DO NOT EDIT  ❣  THIS FILE IS AUTOMATICALLY SYNCED  ❣  DO NOT EDIT  ❣❣❣
+
+# This workflow validates the package’s documentation. Because documentation building involves
+# compiling the package, this also checks that the package itself compiles successfully on each
+# supported platform.
+name: Documentation
 
 on:
     push:
@@ -21,15 +26,16 @@ jobs:
             -   name: 🤍 Install Unidoc 🤍
                 uses: rarestype/unidoc-action@master
 
+            #   This clobbers everything in the current directory!
             -   name: 🤍 Checkout repository 🤍
                 uses: actions/checkout@v6
 
             -   name: 🤍 Validate documentation 🤍
                 run: |
                     unidoc build \
-                    --swift-toolchain $SWIFT_INSTALLATION \
                     --ci fail-on-errors \
-                    --project-path .
+                    --project-path . \
+                    --swift-toolchain $SWIFT_INSTALLATION
 
     macos:
         runs-on: macos-26
