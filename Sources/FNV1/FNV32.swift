@@ -1,7 +1,7 @@
 @frozen public struct FNV32: Equatable, Hashable, Sendable {
     public let value: UInt32
 
-    @inlinable internal init(value: UInt32) {
+    @inlinable init(value: UInt32) {
         self.value = value
     }
 }

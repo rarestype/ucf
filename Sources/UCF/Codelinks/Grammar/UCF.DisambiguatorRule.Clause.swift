@@ -6,12 +6,10 @@ extension UCF.DisambiguatorRule {
         typealias Location = String.Index
         typealias Terminal = Unicode.Scalar
 
-        static func parse<Diagnostics>(
-            _ input: inout ParsingInput<Diagnostics>
-        ) throws -> (String, String?) where
-            Diagnostics: ParsingDiagnostics,
-            Diagnostics.Source.Element == Terminal,
-            Diagnostics.Source.Index == Location {
+        static func parse<Source>(
+            _ input: inout ParsingInput<some ParsingDiagnostics<Source>>
+        ) throws(PatternMatchingError) -> (String, String?)
+            where Source.Element == Terminal, Source.Index == Location {
             let label: String = try input.parse(as: AlphanumericWords.self)
             //  No whitespace padding around the colon; ``AlphanumericWords`` already trims.
             if  case ()? = input.parse(as: UnicodeEncoding<Location, Terminal>.Colon?.self) {

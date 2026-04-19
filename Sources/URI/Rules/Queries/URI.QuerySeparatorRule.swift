@@ -3,8 +3,7 @@ import Grammar
 extension URI {
     /// A parsing rule that matches a query separator character
     /// (`&` or `;`).
-    enum QuerySeparatorRule<Location> {
-    }
+    enum QuerySeparatorRule<Location> {}
 }
 extension URI.QuerySeparatorRule: TerminalRule {
     typealias Terminal = UInt8

@@ -5,15 +5,14 @@ extension URI {
     ///
     /// Parsing a root expression (`/`) with this rule produces a path with
     /// a two empty components.
-    enum RelativePathRule<Location> {
-    }
+    enum RelativePathRule<Location> {}
 }
 extension URI.RelativePathRule: ParsingRule {
     typealias Terminal = UInt8
 
     static func parse<Source>(
         _ input: inout ParsingInput<some ParsingDiagnostics<Source>>
-    ) throws -> URI.Path
+    ) throws(PatternMatchingError) -> URI.Path
         where Source: Collection<UInt8>, Source.Index == Location {
         var components: [URI.Path.Component] = [
             try input.parse(as: URI.PathComponentRule<Location>.self)

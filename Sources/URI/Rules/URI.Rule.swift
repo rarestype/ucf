@@ -7,15 +7,14 @@ extension URI {
     ///
     /// Parsing a root expression (`/`) with this rule produces
     /// a URI with a single, nil path vector.
-    enum Rule<Location> {
-    }
+    enum Rule<Location> {}
 }
 extension URI.Rule: ParsingRule {
     typealias Terminal = UInt8
 
     static func parse<Source>(
         _ input: inout ParsingInput<some ParsingDiagnostics<Source>>
-    ) throws -> URI
+    ) throws(PatternMatchingError) -> URI
         where Source: Collection<UInt8>, Source.Index == Location {
         let path: URI.Path = try input.parse(as: URI.AbsolutePathRule<Location>.self)
         let query: URI.Query? = input.parse(as: URI.QueryRule<Location>?.self)

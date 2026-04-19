@@ -3,8 +3,7 @@ import Grammar
 extension URI.QueryRule {
     /// A parsing rule that matches zero or more ``QueryComponentRule``s separated by
     /// ``QuerySeparatorRule``s.
-    enum Parameters {
-    }
+    enum Parameters {}
 }
 extension URI.QueryRule.Parameters: ParsingRule {
     typealias Terminal = UInt8

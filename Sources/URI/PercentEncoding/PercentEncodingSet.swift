@@ -2,7 +2,7 @@ public protocol PercentEncodingSet {
     static func contains(_ byte: UInt8) -> Bool
 }
 extension PercentEncodingSet {
-    @inlinable internal static func encode(_ string: String) -> String {
+    @inlinable static func encode(_ string: String) -> String {
         func hex(uppercasing value: UInt8) -> UInt8 {
             (value < 10 ? 0x30 : 0x37) + value
         }

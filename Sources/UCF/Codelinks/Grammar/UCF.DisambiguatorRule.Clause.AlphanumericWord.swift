@@ -6,12 +6,10 @@ extension UCF.DisambiguatorRule.Clause {
         typealias Location = String.Index
         typealias Terminal = Unicode.Scalar
 
-        static func parse<Diagnostics>(
-            _ input: inout ParsingInput<Diagnostics>
-        ) throws -> Range<Location> where
-            Diagnostics: ParsingDiagnostics,
-            Diagnostics.Source.Element == Terminal,
-            Diagnostics.Source.Index == Location {
+        static func parse<Source>(
+            _ input: inout ParsingInput<some ParsingDiagnostics<Source>>
+        ) throws(PatternMatchingError) -> Range<Location>
+            where Source.Element == Terminal, Source.Index == Location {
             input.parse(as: UCF.SpaceRule?.self)
 
             let start: Location = input.index

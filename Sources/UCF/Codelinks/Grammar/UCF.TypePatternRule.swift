@@ -8,7 +8,7 @@ extension UCF {
 
         static func parse<Source>(
             _ input: inout ParsingInput<some ParsingDiagnostics<Source>>
-        ) throws -> TypePattern
+        ) throws(PatternMatchingError) -> TypePattern
             where Source: Collection<Terminal>, Source.Index == Location {
             let elements: [TypeElement] = try input.parse(
                 as: Pattern.Join<
