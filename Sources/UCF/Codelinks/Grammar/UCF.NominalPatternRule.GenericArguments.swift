@@ -6,12 +6,10 @@ extension UCF.NominalPatternRule {
         typealias Location = String.Index
         typealias Terminal = Unicode.Scalar
 
-        static func parse<Diagnostics>(
-            _ input: inout ParsingInput<Diagnostics>
-        ) throws -> [UCF.TypePattern] where
-            Diagnostics: ParsingDiagnostics,
-            Diagnostics.Source.Element == Terminal,
-            Diagnostics.Source.Index == Location {
+        static func parse<Source>(
+            _ input: inout ParsingInput<some ParsingDiagnostics<Source>>
+        ) throws(PatternMatchingError) -> [UCF.TypePattern]
+            where Source.Element == Terminal, Source.Index == Location {
             try input.parse(as: UnicodeEncoding<Location, Terminal>.AngleLeft.self)
             input.parse(as: UnicodeEncoding<Location, Terminal>.Space.self, in: Void.self)
             let types: [UCF.TypePattern] = try input.parse(

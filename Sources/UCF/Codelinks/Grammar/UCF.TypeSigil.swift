@@ -6,7 +6,7 @@ extension UCF {
 extension UCF.TypeSigil {
     var text: String {
         switch self {
-        case .tilde:    "~"
+        case .tilde: "~"
         }
     }
 }

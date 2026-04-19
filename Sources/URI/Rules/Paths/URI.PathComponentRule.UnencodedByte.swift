@@ -4,8 +4,7 @@ extension URI.PathComponentRule {
     /// A parsing rule that matches a UTF-8 code unit that is allowed to
     /// appear inline in a path component. This is every code unit except for
     /// `%`, `/`, `\`, `?`, and `#`.
-    enum UnencodedByte {
-    }
+    enum UnencodedByte {}
 }
 extension URI.PathComponentRule.UnencodedByte: TerminalRule {
     typealias Terminal = UInt8

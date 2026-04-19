@@ -1,7 +1,6 @@
-
 extension URI {
     @frozen public struct Path: Equatable, Hashable, Sendable {
-        @usableFromInline internal var components: [Component]
+        @usableFromInline var components: [Component]
 
         @inlinable public init(components: [Component]) {
             self.components = components

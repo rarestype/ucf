@@ -3,8 +3,7 @@ import Grammar
 extension URI {
     /// A parsing rule that matches a path separator character
     /// (`/` or `\`).
-    enum PathSeparatorRule<Location> {
-    }
+    enum PathSeparatorRule<Location> {}
 }
 extension URI.PathSeparatorRule: TerminalRule {
     typealias Terminal = UInt8

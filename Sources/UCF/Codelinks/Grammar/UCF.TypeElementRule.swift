@@ -8,7 +8,7 @@ extension UCF {
 
         static func parse<Source>(
             _ input: inout ParsingInput<some ParsingDiagnostics<Source>>
-        ) throws -> TypeElement
+        ) throws(PatternMatchingError) -> TypeElement
             where Source: Collection<Terminal>, Source.Index == Location {
             let sigil: TypeSigil?
             if  case ()? = input.parse(as: UnicodeEncoding<Location, Terminal>.Tilde?.self) {

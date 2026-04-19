@@ -6,12 +6,10 @@ extension UCF {
         typealias Location = String.Index
         typealias Terminal = Unicode.Scalar
 
-        static func parse<Diagnostics>(
-            _ input: inout ParsingInput<Diagnostics>
-        ) throws -> Range<Location> where
-            Diagnostics: ParsingDiagnostics,
-            Diagnostics.Source.Element == Terminal,
-            Diagnostics.Source.Index == Location {
+        static func parse<Source>(
+            _ input: inout ParsingInput<some ParsingDiagnostics<Source>>
+        ) throws(PatternMatchingError) -> Range<Location>
+            where Source.Element == Terminal, Source.Index == Location {
             let start: Location = input.index
 
             if  case ()? = input.parse(as: FirstCodepoint?.self) {
@@ -25,7 +23,7 @@ extension UCF {
             let end: Location = input.index
 
             if  input[start ..< end].elementsEqual(["T", "y", "p", "e"]) {
-                throw IdentifierError.reserved
+                throw .arbitrary(IdentifierError.reserved)
             } else {
                 return start ..< end
             }

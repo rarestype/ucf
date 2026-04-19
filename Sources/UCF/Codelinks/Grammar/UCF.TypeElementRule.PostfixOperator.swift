@@ -6,12 +6,10 @@ extension UCF.TypeElementRule {
         typealias Location = String.Index
         typealias Terminal = Unicode.Scalar
 
-        static func parse<Diagnostics>(
-            _ input: inout ParsingInput<Diagnostics>
-        ) throws -> UCF.TypeOperator where
-            Diagnostics: ParsingDiagnostics,
-            Diagnostics.Source.Element == Terminal,
-            Diagnostics.Source.Index == Location {
+        static func parse<Source>(
+            _ input: inout ParsingInput<some ParsingDiagnostics<Source>>
+        ) throws(PatternMatchingError) -> UCF.TypeOperator
+            where Source.Element == Terminal, Source.Index == Location {
             if  let codepoint: UCF.TypeOperator = input.parse(
                     as: PostfixOperatorCodepoint?.self
                 ) {

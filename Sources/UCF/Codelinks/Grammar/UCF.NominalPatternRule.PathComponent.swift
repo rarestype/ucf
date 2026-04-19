@@ -8,12 +8,10 @@ extension UCF.NominalPatternRule {
 
         typealias Construction = (Range<Location>, [UCF.TypePattern])
 
-        static func parse<Diagnostics>(
-            _ input: inout ParsingInput<Diagnostics>
-        ) throws -> Construction where
-            Diagnostics: ParsingDiagnostics,
-            Diagnostics.Source.Element == Terminal,
-            Diagnostics.Source.Index == Location {
+        static func parse<Source>(
+            _ input: inout ParsingInput<some ParsingDiagnostics<Source>>
+        ) throws(PatternMatchingError) -> Construction
+            where Source.Element == Terminal, Source.Index == Location {
             let base: Range<Location> = try input.parse(as: UCF.IdentifierRule.self)
             return (base, input.parse(as: GenericArguments?.self) ?? [])
         }

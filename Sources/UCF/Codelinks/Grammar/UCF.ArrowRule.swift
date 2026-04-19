@@ -8,7 +8,7 @@ extension UCF {
 
         static func parse<Source>(
             _ input: inout ParsingInput<some ParsingDiagnostics<Source>>
-        ) throws
+        ) throws(PatternMatchingError)
             where Source: Collection<Terminal>, Source.Index == Location {
             input.parse(as: UnicodeEncoding<Location, Terminal>.Space.self, in: Void.self)
             try input.parse(as: UnicodeEncoding<Location, Terminal>.Hyphen.self)
