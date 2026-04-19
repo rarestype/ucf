@@ -102,8 +102,8 @@ You can prepend a module name to a codelink to fully qualify it.
 
 | Syntax | Renders as |
 | ------ | ---------- |
-| ` ``_Concurrency.AsyncStream`` ` | ``_Concurrency.AsyncStream`` |
-| ` ``_Concurrency/AsyncStream`` ` | ``_Concurrency/AsyncStream`` |
+| ` ``Synchronization.Atomic`` ` | ``Synchronization.Atomic`` |
+| ` ``Synchronization/Atomic`` ` | ``Synchronization/Atomic`` |
 
 If a module re-exports a declaration from another module, you can use the re-exporting module’s name in place of the original module’s name.
 
