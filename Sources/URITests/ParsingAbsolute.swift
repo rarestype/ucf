@@ -1,10 +1,16 @@
 import Testing
 import URI
 
-@Suite struct AbsoluteParsing {
-    @Test static func Empty() throws {
-        #expect(URI.init("") == nil)
+@Suite struct ParsingAbsolute {
+    @Test static func RejectRelative() throws {
+        #expect(URI.init("abc") == nil)
     }
+
+    @Test static func Empty() throws {
+        let uri: URI = try #require(.init(""))
+        #expect(uri.path == [])
+    }
+
 
     @Test static func OneSlash() throws {
         let uri: URI = try #require(.init("/"))
@@ -59,5 +65,23 @@ import URI
     @Test static func OverNormalization() throws {
         let uri: URI = try #require(.init("/abc/../../../../def"))
         #expect(uri.path.normalized() == ["def"])
+    }
+
+    @Test static func QueryOnly() throws {
+        let uri: URI = try #require(.init("?foo=bar"))
+        #expect(uri.path == [])
+        #expect(uri.query == ["foo": "bar"])
+    }
+
+    @Test static func QueryLeadingSlash() throws {
+        let uri: URI = try #require(.init("/?foo=bar"))
+        #expect(uri.path == [])
+        #expect(uri.query == ["foo": "bar"])
+    }
+
+    @Test static func Query() throws {
+        let uri: URI = try #require(.init("/abc/def?foo=bar"))
+        #expect(uri.path == ["abc", "def"])
+        #expect(uri.query == ["foo": "bar"])
     }
 }

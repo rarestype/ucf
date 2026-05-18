@@ -1,12 +1,14 @@
 import Grammar
 
 extension URI {
-    /// A parsing rule that matches an absolute URI, such as
-    /// `/foo/bar/baz?a=x&b=y`. Parsing a relative URI with this
-    /// rule will throw an error.
+    /// A parsing rule that matches an absolute URI, such as `/foo/bar/baz?a=x&b=y`. Parsing a
+    /// relative URI with this rule will throw an error.
     ///
-    /// Parsing a root expression (`/`) with this rule produces
-    /// a URI with a single, nil path vector.
+    /// Parsing a root expression (`/`) with this rule produces a URI with a single, empty path
+    /// vector.
+    ///
+    /// Parsing an empty string, or a string that begins with `?` will produce also a URI with
+    /// a single, empty path vector.
     enum Rule<Location> {}
 }
 extension URI.Rule: ParsingRule {
@@ -16,8 +18,8 @@ extension URI.Rule: ParsingRule {
         _ input: inout ParsingInput<some ParsingDiagnostics<Source>>
     ) throws(PatternMatchingError) -> URI
         where Source: Collection<UInt8>, Source.Index == Location {
-        let path: URI.Path = try input.parse(as: URI.AbsolutePathRule<Location>.self)
+        let path: URI.Path? = input.parse(as: URI.AbsolutePathRule<Location>?.self)
         let query: URI.Query? = input.parse(as: URI.QueryRule<Location>?.self)
-        return .init(path: path, query: query)
+        return .init(path: path ?? .init(), query: query)
     }
 }

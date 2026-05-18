@@ -64,6 +64,19 @@ extension URI.Query: LosslessStringConvertible {
         }
     }
 }
+extension URI.Query {
+    /// Parses query parameters from UTF-8 text. This parser does not expect a leading
+    /// question mark (`?`).
+    public static func parse(parameters utf8: ArraySlice<UInt8>) throws -> Self {
+        .init(try URI.QueryRule<Int>.Parameters.parse(utf8))
+    }
+
+    /// Parses query parameters from a native Swift string. This parser does not expect a
+    /// leading question mark (`?`).
+    public static func parse(parameters: Substring) throws -> Self {
+        .init(try URI.QueryRule<String.Index>.Parameters.parse(parameters.utf8))
+    }
+}
 extension URI.Query: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
         guard lhs.parameters.count == rhs.parameters.count else {
