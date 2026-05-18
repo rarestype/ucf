@@ -1,7 +1,7 @@
 import Testing
 import URI
 
-@Suite struct RelativeParsing {
+@Suite struct ParsingRelative {
     @Test static func Empty() throws {
         let path: URI.Path = try #require(.init(relative: ""))
         #expect(path == [])

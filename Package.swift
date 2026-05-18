@@ -12,6 +12,7 @@ let package: Package = .init(
         .library(name: "FNV1", targets: ["FNV1"]),
         .library(name: "UCF", targets: ["UCF"]),
         .library(name: "URI", targets: ["URI"]),
+        .library(name: "WebRouting", targets: ["WebRouting"]),
     ],
     dependencies: [
         .package(url: "https://github.com/ordo-one/dollup", from: "1.0.1"),
@@ -35,6 +36,13 @@ let package: Package = .init(
             name: "URI",
             dependencies: [
                 .product(name: "Grammar", package: "gram"),
+            ]
+        ),
+
+        .target(
+            name: "WebRouting",
+            dependencies: [
+                .target(name: "URI"),
             ]
         ),
 

@@ -1,7 +1,7 @@
 import Testing
 import URI
 
-@Suite struct QueryFormParsing {
+@Suite struct ParsingQueryForm {
     @Test static func Empty() throws {
         let form: URI.QueryEncodedForm = try .parse(parameters: "")
         #expect(form.parameters == [])
