@@ -7,7 +7,7 @@ extension URI {
     }
 }
 extension URI.QueryDecodable {
-    @inlinable public init(decoding uri: URI.Query) throws {
+    @inlinable public init(decoding uri: borrowing URI.Query) throws {
         let decoder: URI.QueryDecoder<QueryKey> = .init(indexing: uri.parameters)
         try self.init(from: decoder)
     }
