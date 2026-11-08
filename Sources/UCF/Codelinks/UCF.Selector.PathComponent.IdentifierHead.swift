@@ -1,7 +1,6 @@
 extension UCF.Selector.PathComponent {
     struct IdentifierHead {
-        private init() {
-        }
+        private init() {}
     }
 }
 extension UCF.Selector.PathComponent.IdentifierHead {

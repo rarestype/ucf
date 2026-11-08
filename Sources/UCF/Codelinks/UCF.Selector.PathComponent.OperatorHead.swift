@@ -1,7 +1,6 @@
 extension UCF.Selector.PathComponent {
     struct OperatorHead {
-        private init() {
-        }
+        private init() {}
     }
 }
 extension UCF.Selector.PathComponent.OperatorHead {

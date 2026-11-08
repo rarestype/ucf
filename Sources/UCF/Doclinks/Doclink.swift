@@ -66,8 +66,7 @@ extension Doclink: CustomStringConvertible {
     @inlinable public var description: String { "doc:\(self.text)" }
 }
 @available(*, deprecated)
-extension Doclink: LosslessStringConvertible {
-}
+extension Doclink: LosslessStringConvertible {}
 extension Doclink {
     public init?(_ description: String) {
         if  let start: String.Index = description.index(
