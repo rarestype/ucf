@@ -1,6 +1,5 @@
 extension URI.Path.Component {
-    @frozen public enum EncodingSet {
-    }
+    @frozen public enum EncodingSet {}
 }
 extension URI.Path.Component.EncodingSet: PercentEncodingSet {
     @inlinable public static func contains(_ byte: UInt8) -> Bool {

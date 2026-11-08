@@ -6,9 +6,11 @@ import UCF
     typealias Format = UCF.Selector
 
     @Test static func Ignore() throws {
-        let link: UCF.Selector = try Self.roundtrip("""
+        let link: UCF.Selector = try Self.roundtrip(
+            """
             Fake [ignore when: macOS, ignore when: Linux]
-            """)
+            """
+        )
         #expect(link.base == .relative)
         #expect(link.path.components == ["Fake"])
         #expect(
@@ -65,9 +67,11 @@ import UCF
         )
     }
     @Test static func ClassVarRequirementNegated() throws {
-        let link: UCF.Selector = try Self.roundtrip("""
+        let link: UCF.Selector = try Self.roundtrip(
+            """
             Fake.max [class var: false, requirement: false]
-            """)
+            """
+        )
         #expect(link.base == .relative)
         #expect(link.path.components == ["Fake", "max"])
         #expect(!link.path.hasTrailingParentheses)
@@ -84,9 +88,11 @@ import UCF
         )
     }
     @Test static func Signature() throws {
-        let link: UCF.Selector = try Self.roundtrip("""
+        let link: UCF.Selector = try Self.roundtrip(
+            """
             Foo.bar(_:_:) (Int, _)
-            """)
+            """
+        )
         #expect(link.base == .relative)
         #expect(link.path.components == ["Foo", "bar(_:_:)"])
         #expect(link.path.hasTrailingParentheses)
@@ -100,9 +106,11 @@ import UCF
         )
     }
     @Test static func SignatureFull() throws {
-        let link: UCF.Selector = try Self.roundtrip("""
+        let link: UCF.Selector = try Self.roundtrip(
+            """
             Foo.bar(_:_:) (_, Int) -> Set<String>
-            """)
+            """
+        )
         #expect(link.base == .relative)
         #expect(link.path.components == ["Foo", "bar(_:_:)"])
         #expect(link.path.hasTrailingParentheses)
@@ -116,9 +124,11 @@ import UCF
         )
     }
     @Test static func SignatureReturns() throws {
-        let link: UCF.Selector = try Self.roundtrip("""
+        let link: UCF.Selector = try Self.roundtrip(
+            """
             Foo.bar(_:_:) -> Set<String>
-            """)
+            """
+        )
         #expect(link.base == .relative)
         #expect(link.path.components == ["Foo", "bar(_:_:)"])
         #expect(link.path.hasTrailingParentheses)
@@ -132,9 +142,11 @@ import UCF
         )
     }
     @Test static func SignatureProtocolComposition() throws {
-        let link: UCF.Selector = try Self.roundtrip("""
+        let link: UCF.Selector = try Self.roundtrip(
+            """
             Foo.bar(_:_:) (StringProtocol & Error, [Sendable & RandomAccessCollection<UInt8>])
-            """)
+            """
+        )
         #expect(link.base == .relative)
         #expect(link.path.components == ["Foo", "bar(_:_:)"])
         #expect(link.path.hasTrailingParentheses)
@@ -153,9 +165,11 @@ import UCF
         )
     }
     @Test static func SignatureVariadics() throws {
-        let link: UCF.Selector = try Self.roundtrip("""
+        let link: UCF.Selector = try Self.roundtrip(
+            """
             Foo.bar(_:_:) (String..., [Int: Set<T>]...)
-            """)
+            """
+        )
         #expect(link.base == .relative)
         #expect(link.path.components == ["Foo", "bar(_:_:)"])
         #expect(link.path.hasTrailingParentheses)
@@ -169,9 +183,11 @@ import UCF
         )
     }
     @Test static func SignatureNoncopyable() throws {
-        let link: UCF.Selector = try Self.roundtrip("""
+        let link: UCF.Selector = try Self.roundtrip(
+            """
             Foo.bar(_:_:) (~Copyable & Sendable, ~(Copyable) & (Sendable))
-            """)
+            """
+        )
         #expect(link.base == .relative)
         #expect(link.path.components == ["Foo", "bar(_:_:)"])
         #expect(link.path.hasTrailingParentheses)
@@ -185,9 +201,11 @@ import UCF
         )
     }
     @Test static func All() throws {
-        let link: UCF.Selector = try Self.roundtrip("""
+        let link: UCF.Selector = try Self.roundtrip(
+            """
             Foo.bar(_:_:) (_, Int) -> () [static func: false, requirement: true]
-            """)
+            """
+        )
         #expect(link.base == .relative)
         #expect(link.path.components == ["Foo", "bar(_:_:)"])
         #expect(link.path.hasTrailingParentheses)

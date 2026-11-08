@@ -4,8 +4,7 @@ import Grammar
 /// and the generic parameter, which is expected to match a single un-escaped
 /// UTF-8 code unit.
 enum PercentEncodedStringRule<UnencodedByte>
-    where UnencodedByte: ParsingRule<UInt8>, UnencodedByte.Construction == Void {
-}
+    where UnencodedByte: ParsingRule<UInt8>, UnencodedByte.Construction == Void {}
 extension PercentEncodedStringRule: ParsingRule {
     typealias Location = UnencodedByte.Location
     typealias Terminal = UnencodedByte.Terminal
